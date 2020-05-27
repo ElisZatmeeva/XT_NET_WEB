@@ -35,8 +35,10 @@ namespace _1._1._6_Reight
 
                 foreach (TypeFont item in typeFonts)
                 {
-                    if (item != TypeFont.None)
-                        Console.WriteLine("{0,3:D}:\t{0:G}", item);
+
+                        if (item != TypeFont.None)
+                        Console.WriteLine("{0,2:D}:\t{0:G}", item);
+                   
                 }
 
                 int num = int.Parse(Console.ReadLine());

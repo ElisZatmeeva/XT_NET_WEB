@@ -1,0 +1,148 @@
+/*Обнуление*/
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+*,
+*:before,
+*:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+:focus,
+:active {
+	outline: none;
+}
+
+a:focus,
+a:active {
+	outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+	display: block;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+	font-family: inherit;
+}
+
+input::-ms-clear {
+	display: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+a,
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+ul li {
+	list-style: none;
+}
+
+img {
+	vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: 700;
+}
+
+/*--------------------*/
+.check-in-form {
+	padding: 40px;
+	outline: 5px solid rgb(0, 117, 178);
+	margin: 20px;
+	width: 450px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(6, 144, 207);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.check-in-form-title {
+	font-size: 20px;
+	margin: 0px 0px 30px 0px;
+}
+
+.check-in-form-title::after {
+	content: '';
+	height: 1px;
+	background-color: rgb(255, 255, 255);
+	display: block;
+	margin: 30px 0px 0px 0px;
+}
+
+
+.input {
+	padding: 5px;
+	border: 1px solid rgb(193, 195, 199);
+	border-radius: 3px;
+
+}
+
+.check-in-form-line {
+	display: flex;
+	flex-direction: column;
+	margin: 10px 0px;
+}
+
+.check-in-form-line label {
+	flex: auto;
+	margin: 0px 0px 2px 0px;
+}
+
+.check-in-form-row-line {
+	display: flex;
+	justify-content: space-between;
+
+
+}
+
+.button {
+	margin: 20px 0px 0px 0px;
+	padding: 7px;
+	text-align: center;
+	background-color: rgb(255, 223, 127);
+}

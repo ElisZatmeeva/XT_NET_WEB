@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <!-- Кодировка страницы -->
+    <meta charset="UTF-8">
+    <!-- Фиксированная ширина -->
+    <meta name="viewport" content="width=450">
+
+    <meta name="description" content="EPAM">
+    <meta name="keywords" content="task 8.5">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title></title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <nav class="nav-search">
+                <div class="search-container">
+                    <div class="button">
+                        <img src="../source/img/icon_find.jpg" alt="find">
+                    </div>
+                    <div class="search">
+                        <input type="search" placeholder="Поиск" name="search" value="">
+                    </div>
+                </div>
+
+            </nav>
+
+            <header class="header">
+                <!-- Create note -->
+                <div class="container-note" data-property="create">
+                    <div class="header-note" data-property="create">
+                        <input type="text" placeholder="Введите заголовок" value="">
+                    </div>
+                    <!-- <input type="text" placeholder="Текст заметки" value=""> -->
+                    <textarea class="text-note" data-property="create" name="text-node"
+                        placeholder="Текст заметки"></textarea>
+                    <div class="functional-note-btn" data-property="create">
+                        <div class="btn-note" data-action="create">
+                            <button type="button" value="create" data-action="create">Создать</button>
+                        </div>
+                        <div class="btn-note" data-action="close">
+                            <button type="button" value="close" data-action="close">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="create-new-note"></div>
+        </div>
+    </div>
+
+    </header>
+    </div>
+    </div>
+    <script src='/js/script.js'></script>
+</body>
+
+</html>

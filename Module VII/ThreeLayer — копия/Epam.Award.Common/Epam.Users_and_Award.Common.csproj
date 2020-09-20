@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D0263926-D365-452D-BB16-4A466D26278D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ThreeLayer</RootNamespace>
-    <AssemblyName>ThreeLayer</AssemblyName>
+    <ProjectGuid>{9B7B849D-BBA0-4D37-8A73-AF75D263489C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Epam.Award.Common</RootNamespace>
+    <AssemblyName>Epam.Award.Common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,26 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,26 +41,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DependencyResolverAward.cs" />
+    <Compile Include="DependencyResolverUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Epam.Award.Common\Epam.Users_and_Award.Common.csproj">
-      <Project>{9b7b849d-bba0-4d37-8a73-af75d263489c}</Project>
-      <Name>Epam.Users_and_Award.Common</Name>
+    <ProjectReference Include="..\Epa.User and Award.DAL.Interfaces\Epam.User and Award.DAL.Interfaces.csproj">
+      <Project>{c74817b5-c5b4-447d-9889-fc6509b1ac8e}</Project>
+      <Name>Epam.User and Award.DAL.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Epam.Award.Entities\Epam.Users_and_Award.Entities.csproj">
       <Project>{6c988f5f-9171-4966-ac1e-462e4c221e81}</Project>
       <Name>Epam.Users_and_Award.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Epam.User and Award.BLL\Epam.User and Award.BLL.csproj">
+      <Project>{bbe32c89-44d7-4a60-a42c-a07809cec668}</Project>
+      <Name>Epam.User and Award.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epam.User and Award\Epam.User and Award.DAL.csproj">
+      <Project>{a73fe798-c6a3-4ad8-88ec-611e1b2637ce}</Project>
+      <Name>Epam.User and Award.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Epam.Users and Awards.BLL.Interfaces\Epam.Users and Awards.BLL.Interfaces.csproj">
       <Project>{e6332807-c5fc-421a-b24e-5a1169349d3a}</Project>
       <Name>Epam.Users and Awards.BLL.Interfaces</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

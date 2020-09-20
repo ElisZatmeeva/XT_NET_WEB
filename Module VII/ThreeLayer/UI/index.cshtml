@@ -1,0 +1,84 @@
+﻿
+@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+
+@{
+    @*Layout = "~/_basicLayout.cshtml";*@
+    var awardLogic = DependencyResolverAward.AwardLogic;
+
+    @*awardLogic.Add("type");*@
+    
+    var selectDataAwards = awardLogic.GetAll();
+    var gridAwards = new WebGrid(source: selectDataAwards, rowsPerPage: 5);
+
+    var userLogic = DependencyResolverUser.UserLogic;
+    
+   
+    @*userLogic.Add("Type", (int)10, new DateTime(2015, 05, 05));*@
+
+userLogic.DeleteById(47);
+
+
+var showUserById = userLogic.GetUserById(3);
+
+var selectedDataUsers =  userLogic.GetAll();
+
+var gridUsers = new WebGrid(source: selectedDataUsers, rowsPerPage: 5);
+
+
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Users_and_Awards</title>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" /
+</head>
+<body>
+    <div class="wrapper">
+        <div class="contant">
+            
+
+            <div class="tableUsers">
+                <h3> Table Users </h3>
+                @gridUsers.GetHtml(
+            tableStyle: "grid",
+            headerStyle: "head",
+            alternatingRowStyle: "alt",
+            columns: gridUsers.Columns(
+                gridUsers.Column("Id"),
+                gridUsers.Column("DateOfBirth"),
+                gridUsers.Column("Age"),
+                gridUsers.Column("Name")
+
+                                   )
+            )
+                <h3> I`m showing User by ID: </h3>
+                <div>@showUserById</div>
+            <div>
+
+
+                    <div class="tableAwards">
+                        <h3>Table Awards</h3>
+                        @gridAwards.GetHtml(
+                    tableStyle: "grid",
+                    headerStyle: "head",
+                    alternatingRowStyle: "alt",
+                    columns: gridAwards.Columns(
+                        gridAwards.Column("Id"),
+                        gridAwards.Column("Title")
+
+                                           )
+                    )
+                    </div>
+                </div>
+
+            </div>
+</body>
+</html>

@@ -7,7 +7,7 @@ using Epam.User_and_Award.BLL;
 using Epam.User_and_Award.DAL;
 using Epam.User_and_Award.DAL.Interfaces;
 using Users_and_Awards.BLL.Interfaces;
-
+/*using Microsoft.AspNetCore.Mvc.Razor;*/
 
 namespace Epam.Users_and_User.Common
 {

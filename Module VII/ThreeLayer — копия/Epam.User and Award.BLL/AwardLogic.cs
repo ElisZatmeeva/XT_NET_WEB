@@ -12,7 +12,7 @@ namespace Epam.User_and_Award.BLL
 {
     public class AwardLogic : IAwardLogic
     {
-        private readonly IAwardDao _awardDao;
+        private readonly IAwardDao _awardDao; 
 
         public AwardLogic(IAwardDao awardDao)
         {
@@ -27,6 +27,11 @@ namespace Epam.User_and_Award.BLL
 
         public IEnumerable<Award> GetAll()
         {
+            foreach (var item in _awardDao.GetAll())
+            {
+                Console.WriteLine(item);
+
+            }
             return _awardDao.GetAll();
         }
 

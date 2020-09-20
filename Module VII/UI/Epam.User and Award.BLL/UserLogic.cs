@@ -15,7 +15,7 @@ namespace Epam.User_and_Award.BLL
 
         public UserLogic(IUserDao userDao)
         {
-            
+
             _userDao = userDao;
 
         }
@@ -25,27 +25,22 @@ namespace Epam.User_and_Award.BLL
             _userDao.Add(name, age, DateOfBirth);
         }
 
-        public User GetUserById(int id) 
+        public User GetUserById(int id)
         {
             var user = _userDao.GetUserById(id);
-            Console.WriteLine(user);
+            /*Console.WriteLine(user);*/
             return _userDao.GetUserById(id);
 
-        } 
+        }
 
         public void DeleteById(int id)
         {
             _userDao.DeleteById(id);
-            
+
         }
 
         public IEnumerable<User> GetAll()
         {
-            foreach (var item in _userDao.GetAll())
-            {
-                Console.WriteLine(item);
-
-            }
             return _userDao.GetAll();
         }
 

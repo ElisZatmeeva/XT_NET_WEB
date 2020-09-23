@@ -1,0 +1,101 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+@using Users_and_Awards.BLL.Interfaces;
+
+
+@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Delete User";
+
+    var name = "";
+    var year = "";
+    var month = "";
+    var day = "";
+    var age = "";
+    var userId = "";
+
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
+        {
+
+            userId = Request.QueryString["ID"];
+            var userLogic = DependencyResolverUser.UserLogic;
+            var row = userLogic.GetUserById(userId.AsInt());
+
+
+            if (row != null)
+            {
+                name = row.Name;
+                year = row.DateOfBirth.Year.ToString();
+                month = row.DateOfBirth.Month.ToString();
+                day = row.DateOfBirth.Day.ToString();
+                age = row.Age.ToString();
+
+            }
+            else
+            {
+                Validation.AddFormError("No user was selected.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No user was selected.");
+        }
+    }
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+
+        Uri theRealURL = new Uri(HttpContext.Current.Request.Url.Scheme + "://" +   HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.RawUrl);
+
+        string IdFromUri= HttpUtility.ParseQueryString(theRealURL.Query).Get("Id");
+
+        var userLogicDelete = DependencyResolverUser.UserLogic;
+
+
+        userLogicDelete.DeleteById(IdFromUri.AsInt());
+        Response.Redirect("~/index");
+    }
+}
+
+  <h1>Delete a User</h1>
+    @Html.ValidationSummary()
+    <p><a href="~/index">Return to user listing</a></p>
+
+    <form method="post">
+        <fieldset>
+            <legend>User Information</legend>
+
+            <p>
+                <span>Name:</span>
+                <span>@name</span>
+            </p>
+
+            <p>
+                <span>Year:</span>
+                <span>@year</span>
+            </p>
+
+            <p>
+                <span>Month:</span>
+                <span>@month</span>
+            </p>
+
+            <p>
+                <span>Day:</span>
+                <span>@day</span>
+            </p>
+
+            <p>
+                <span>Age:</span>
+                <span>@age</span>
+            </p>
+
+            <input type="hidden" name="usreid" value="@userId" />
+            <p><input type="submit" name="buttonDelete" value="Delete User" /></p>
+        </fieldset>
+    </form>
+

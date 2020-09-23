@@ -1,0 +1,41 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+
+@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Add Award";
+
+    Validation.RequireField("title", "You must enter a title");
+
+    var title = "";
+
+    if (IsPost && Validation.IsValid())
+    {
+        title = Request.Form["Title"];
+
+        var awardLogic = DependencyResolverAward.AwardLogic;
+        awardLogic.Add(title);
+        Response.Redirect("~/index");
+    }
+}
+
+    <h1>Add a Award</h1>
+
+    <form method="post">
+        <fieldset>
+            <legend>Award Information</legend>
+
+            <p>
+                <label for="title">Title:</label>
+                <input type="text" name="title" value="@Request.Form["Title"]" />
+                @Html.ValidationMessage("Title")
+            </p>
+
+
+            <p><input type="submit" name="buttonSubmit" value="Add Award" /></p>
+
+        </fieldset>
+    </form>

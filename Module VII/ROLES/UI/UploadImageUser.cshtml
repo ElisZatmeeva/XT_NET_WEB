@@ -1,0 +1,58 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+
+@{
+
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Add Images";
+
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest();
+        if (photo != null)
+        {
+            newFileName = Guid.NewGuid().ToString() + "_" +
+                Path.GetFileName(photo.FileName);
+            
+
+            photo.Save(@"~\" + imagePath);
+            
+            imagePath = @"images\" + newFileName;
+
+            Uri theRealURL = new Uri(HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.RawUrl);
+
+            string IdFromUrl = HttpUtility.ParseQueryString(theRealURL.Query).Get("Id");
+
+            var userLogicAddImage = DependencyResolverUser.UserLogic;
+
+            Response.Redirect("~/HomePage");
+
+        }
+    }
+}
+
+    <form action="" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend> Upload Image </legend>
+            <label for="Image">Image</label>
+            <input type="file" name="Image" />
+            <br />
+            <input type="submit" value="Upload" />
+        </fieldset>
+    </form>
+    <h1>Uploaded Image</h1>
+    @if (imagePath != "")
+    {
+        <div class="result">
+            <img src="@imagePath" alt="image" width="150px" />
+
+        </div>
+    }
+</body>
+</html>

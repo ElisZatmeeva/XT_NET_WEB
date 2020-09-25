@@ -1,0 +1,98 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Entrance";
+
+    var name = "";
+    var password = "";
+    var message = "";
+
+
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["Name"].IsEmpty() && Request.QueryString["Name"].IsInt())
+        {
+            var userLogic = DependencyResolverUser.UserLogic;
+            var row = userLogic.GetUserByName(name.ToString());
+
+
+            if (row != null)
+            {
+                name = row.Name;
+
+                password = row.Password.ToString();
+
+            }
+            else
+            {
+                Validation.AddFormError("No user was selected.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No user was selected.");
+        }
+    }
+
+    if (IsPost)
+    {
+        Validation.RequireField("name", "You must enter a name");
+        Validation.RequireField("password", "Password is required");
+
+        name = Request.Form["Name"];
+        password = Request.Form["password"];
+
+        if (Validation.IsValid())
+        {
+
+            var userLogicRole = DependencyResolverUser.UserLogic;
+
+            var passFromBD = userLogicRole.GetUserByName(name);
+            
+            
+            if (passFromBD.Name == "admin" && passFromBD.Password == "admin")
+            {
+                Response.Redirect("~/HomePageForAdmin");
+            }
+            if (passFromBD.Name == name && passFromBD.Password == password)
+            {
+                Response.Redirect("~/HomePage");
+            }
+            else
+            {
+                
+                message = "Неверное имя пользователя или пароль";
+            }
+
+
+        }
+    }
+}
+
+<h2>Entrance</h2>
+<form method="post">
+    <fieldset>
+        <legend>User Information</legend>
+
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="@name" />
+
+        </p>
+
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" name="password" value="@password" />
+
+        </p>
+
+        <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+
+        <div >@message</div>
+    </fieldset>
+</form>

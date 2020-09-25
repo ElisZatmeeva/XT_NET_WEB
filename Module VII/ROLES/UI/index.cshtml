@@ -1,0 +1,75 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Entrance";
+
+    var name = "";
+    var password = "";
+
+
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["Name"].IsEmpty() && Request.QueryString["Name"].IsInt())
+        {
+
+            var userLogic = DependencyResolverUser.UserLogic;
+            var row = userLogic.GetUserByName(name.ToString());
+
+
+            if (row != null)
+            {
+                name = row.Name;
+
+                password = row.Password.ToString();
+
+            }
+            else
+            {
+                Validation.AddFormError("No user was selected.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No user was selected.");
+        }
+    }
+
+    if (IsPost)
+    {
+        Validation.RequireField("name", "You must enter a name");
+        Validation.RequireField("password", "Password is required");
+
+        name = Request.Form["Name"];
+        password = Request.Form["password"];
+
+        if (Validation.IsValid())
+        {
+            Uri theRealURL = new Uri(HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.RawUrl);
+
+            string IdFromUrl = HttpUtility.ParseQueryString(theRealURL.Query).Get("Id");
+
+            var userLogicUpdate = DependencyResolverUser.UserLogic;
+
+
+            Response.Redirect("~/HomePage");
+
+
+        }
+    }
+}
+
+}
+
+<h2>Register or entrance</h2>
+<form method="post">
+    <fieldset>
+        <button class="registration" name="buttonRegistration"> <a href="~/RegistrationUser">Registration</a></button>
+        <button class="entrance" name="buttonEntrance"><a href="~/Entrance">Entrance</a></button>
+
+    </fieldset>
+</form>

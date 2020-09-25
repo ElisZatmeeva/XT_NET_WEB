@@ -1,0 +1,78 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+@using Users_and_Awards.BLL.Interfaces;
+
+
+@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Delete Award";
+
+    var title = "";
+    var awardId = "";
+
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
+        {
+
+            awardId = Request.QueryString["ID"];
+            var awardLogic = DependencyResolverAward.AwardLogic;
+            var row = awardLogic.GetAwardById(awardId.AsInt());
+
+
+            if (row != null)
+            {
+                title = row.Title;
+
+            }
+            else
+            {
+                Validation.AddFormError("No award was selected.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No award was selected.");
+        }
+    }
+
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+
+
+
+        Uri theRealURL = new Uri(HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.RawUrl);
+
+        string IdFromUri = HttpUtility.ParseQueryString(theRealURL.Query).Get("Id");
+
+        var awardLogicDelete = DependencyResolverAward.AwardLogic;
+
+        awardLogicDelete.DeleteById(IdFromUri.AsInt());
+        Response.Redirect("~/HomePage");
+    }
+}
+
+    <h2>Delete a Award</h2>
+    @Html.ValidationSummary()
+    <p><a href="~/HomePage">Return to award listing</a></p>
+
+    <form method="post">
+        <fieldset>
+            <legend>Award Information</legend>
+
+            <p>
+                <span>Title:</span>
+                <span>@title</span>
+            </p>
+
+
+            <input type="hidden" name="awardid" value="@awardId" />
+            <p><input type="submit" name="buttonDelete" value="Delete User" /></p>
+
+            <asp:ScriptManager ID="asm" runat="server" />
+        </fieldset>
+
+    </form>

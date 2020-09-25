@@ -1,0 +1,103 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+@{
+
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Registration User";
+
+    Validation.RequireField("name", "You must enter a name");
+    Validation.RequireField("year", "You haven't entered a year");
+    Validation.RequireField("month", "Month is required");
+    Validation.RequireField("day", "Day is required");
+    Validation.RequireField("age", "Age is required");
+    Validation.RequireField("password", "Password is required");
+
+    var name = "";
+    var year = "";
+    var month = "";
+    var day = "";
+    var age = "";
+    var password = "";
+
+    if (IsPost && Validation.IsValid())
+    {
+        name = Request.Form["Name"];
+        year = Request.Form["year"];
+        month = Request.Form["month"];
+        day = Request.Form["day"];
+        age = Request.Form["Age"];
+        password = Request.Form["Password"];
+
+        var userLogic = DependencyResolverUser.UserLogic;
+
+        userLogic.Add(name, age.AsInt(), new DateTime(year.AsInt(), month.AsInt(), day.AsInt()), password);
+
+        var passFromBD = userLogic.GetUserByName(name);
+
+
+        if (passFromBD.Name == "admin" && passFromBD.Password == "admin")
+        {
+            FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
+            Response.Redirect("~/HomePageForAdmin");
+        }
+        else
+        {
+            FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
+            Response.Redirect("~/HomePage");
+        }
+
+    }
+}
+
+  
+
+<h1>Sign in</h1>
+
+<form method="post">
+    <fieldset>
+        <legend>Sign in</legend>
+
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="@Request.Form["Name"]" />
+            @Html.ValidationMessage("Name")
+        </p>
+
+        <p>
+            <label for="year">Year:</label>
+            <input type="text" name="year" value="@Request.Form["year"]" />
+            @Html.ValidationMessage("year")
+        </p>
+
+        <p>
+            <label for="month">Month:</label>
+            <input type="text" name="month" value="@Request.Form["month"]" />
+            @Html.ValidationMessage("month")
+        </p>
+
+        <p>
+            <label for="day">Day:</label>
+            <input type="text" name="day" value="@Request.Form["day"]" />
+            @Html.ValidationMessage("day")
+        </p>
+
+        <p>
+            <label for="age">Age:</label>
+            <input type="text" name="age" value="@Request.Form["Age"]" />
+            @Html.ValidationMessage("Age")
+        </p>
+
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" name="password" value="@Request.Form["Password"]" />
+            @Html.ValidationMessage("Password")
+        </p>
+
+        <p><input type="submit" name="buttonRegister" value="Register" /></p>
+     
+
+    </fieldset>
+</form>

@@ -1,0 +1,66 @@
+﻿@using Epam.Users_and_Award.Entities
+@using Epam.Users_and_Award.Common;
+@using Epam.Users_and_User.Common;
+@using Epam.User_and_Award.BLL;
+
+
+@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "List Users and Awards";
+    var imagePath = @"images\\Default.png";
+
+    var awardLogic = DependencyResolverAward.AwardLogic;
+
+    var selectDataAwards = awardLogic.GetAll();
+    var gridAwards = new WebGrid(source: selectDataAwards, rowsPerPage: 5);
+
+    var userLogic = DependencyResolverUser.UserLogic;
+
+
+    var showUserById = userLogic.GetUserById(3);
+
+
+    var selectedDataUsers = userLogic.GetAll();
+
+    var gridUsers = new WebGrid(source: selectedDataUsers, rowsPerPage: 5);
+
+}
+
+<h3 class="title"> Table Users </h3>
+@gridUsers.GetHtml(
+tableStyle: "grid",
+headerStyle: "head",
+alternatingRowStyle: "alt",
+columns: 
+gridUsers.Columns(
+gridUsers.Column("Id"),
+gridUsers.Column("DateOfBirth"),
+gridUsers.Column("Age"),
+gridUsers.Column("Name"),
+gridUsers.Column(format: @<a href="~/UploadImageUser?id=@item.ID"><img src="@imagePath" alt="Sample Image" width="100px" /></a>)
+)
+)
+<p class="reference">
+    <a href="~/AddUser">Add a User</a>
+</p>
+
+<h3> I`m showing User by ID: </h3>
+<div>@showUserById</div>
+
+
+<h3 class="title">Table Awards</h3>
+@gridAwards.GetHtml(
+tableStyle: "grid",
+headerStyle: "head",
+alternatingRowStyle: "alt",
+columns: gridAwards.Columns(
+gridAwards.Column("Id"),
+gridAwards.Column("Title")
+
+
+
+)
+)
+<p class="reference">
+    <a href="~/AddAward">Add a Award</a>
+</p>
